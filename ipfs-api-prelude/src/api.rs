@@ -2253,8 +2253,10 @@ pub trait IpfsApi: Backend {
     /// let res = client.repo_verify();
     /// ```
     ///
-    async fn repo_verify(&self) -> Result<response::RepoVerifyResponse, Self::Error> {
-        self.request(request::RepoVerify, None).await
+    async fn repo_verify(&self) -> BoxStream<response::RepoVerifyResponse, Self::Error> {
+        impl_stream_api_response! {
+            (self, request::RepoVerify, None) => request_stream_json
+        }
     }
 
     /// Show the repo version.

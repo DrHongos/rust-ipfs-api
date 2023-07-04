@@ -37,7 +37,7 @@ pub struct RepoStatResponse {
 #[derive(Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct RepoVerifyResponse {
-    pub message: String,
+    pub msg: String,
     // Could technically be an i64 but this is probably safest?
     pub progress: i32,
 }
