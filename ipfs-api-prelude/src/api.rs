@@ -2212,22 +2212,50 @@ pub trait IpfsApi: Backend {
 
     // TODO /repo/fsck
 
-    // /repo/gc                                                                     TODO: add docs
+    /// Perform a garbage collection sweep on the repo.
+    ///
+    /// ```no_run
+    /// use ipfs_api::{IpfsApi, IpfsClient};
+    ///
+    /// let client = IpfsClient::default();
+    /// let mut res = client.repo_gc().await;
+    /// while let Some(n) = res.try_next().await.expect("stream error") {
+    ///     let val = n.key.get("/").expect("no value");
+    ///     println!("{}", val);
+    /// };
+    /// ```
+    ///
     async fn repo_gc(&self) -> BoxStream<response::RepoGcResponse, Self::Error> {
         impl_stream_api_response! {
             (self, request::RepoGc { stream_errors: None, quiet: None, silent: None}, None) => request_stream_json
         }
     }
 
-    // /repo/stat                                                                     TODO: add docs
+    /// Get stats for the currently used repo.
+    ///
+    /// ```no_run
+    /// use ipfs_api::{IpfsApi, IpfsClient};
+    ///
+    /// let client = IpfsClient::default();
+    /// let res = client.repo_stat();
+    /// ```
+    ///
     async fn repo_stat(&self) -> Result<response::RepoStatResponse, Self::Error> {
         self.request(request::RepoStat { size_only: None, human: None }, None).await
     }
 
-    // TODO /repo/verify
-//    async fn repo_verify(&self) -> Result<response::RepoVerifyResponse, Self::Error> {
-//        self.request_empty(request::RepoVerify, None).await
-//    }
+    /// Verify all blocks in repo are not corrupted.
+    ///
+    /// ```no_run
+    /// use ipfs_api::{IpfsApi, IpfsClient};
+    ///
+    /// let client = IpfsClient::default();
+    /// let res = client.repo_verify();
+    /// ```
+    ///
+    async fn repo_verify(&self) -> Result<response::RepoVerifyResponse, Self::Error> {
+        self.request(request::RepoVerify, None).await
+    }
 
     // TODO /repo/version
 
