@@ -2210,7 +2210,7 @@ pub trait IpfsApi: Backend {
         }
     }
 
-    // TODO /repo/fsck
+    // TODO /repo/fsck  (not in kubo?)
 
     /// Perform a garbage collection sweep on the repo.
     ///
@@ -2268,6 +2268,21 @@ pub trait IpfsApi: Backend {
     ///
     async fn repo_version(&self) -> Result<response::RepoVersionResponse, Self::Error> {
         self.request(request::RepoVersion { quiet: None }, None).await
+    }
+
+    /// List all local references.
+    ///
+    /// ```no_run
+    /// use ipfs_api::{IpfsApi, IpfsClient};
+    ///
+    /// let client = IpfsClient::default();
+    /// let res = client.repo_ls();
+    /// ```
+    ///
+    async fn repo_ls(&self) -> BoxStream<response::RepoLsResponse, Self::Error> {
+        impl_stream_api_response! {
+            (self, request::RepoLs, None) => request_stream_json
+        }
     }
 
     // TODO /resolve

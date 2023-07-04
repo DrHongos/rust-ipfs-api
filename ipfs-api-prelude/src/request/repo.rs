@@ -46,3 +46,11 @@ pub struct RepoVersion {
 impl ApiRequest for RepoVersion {
     const PATH: &'static str = "/repo/version";
 }
+
+pub struct RepoLs;
+
+impl_skip_serialize!(RepoLs);
+
+impl ApiRequest for RepoLs {
+    const PATH: &'static str = "/repo/ls";
+}

@@ -48,6 +48,16 @@ pub struct RepoVersionResponse {
     pub version: String,
 }
 
+#[derive(Debug, Deserialize)]           // copied model from refs/local
+#[serde(rename_all = "PascalCase")]
+pub struct RepoLsResponse {
+    #[serde(rename = "Ref")]
+    pub reference: String,
+
+    pub err: String,
+}
+
+
 #[cfg(test)]
 mod tests {
     deserialize_test!(v0_repo_gc_0, RepoGcResponse);
