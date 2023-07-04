@@ -37,6 +37,7 @@ pub use self::swarm::*;
 pub use self::swarm_connect::*;
 pub use self::tar::*;
 pub use self::version::*;
+pub use self::repo::*;
 
 /// Create a test to verify that serializing a `ApiRequest` returns the expected
 /// url encoded string.
@@ -99,6 +100,7 @@ mod swarm;
 mod swarm_connect;
 mod tar;
 mod version;
+mod repo;
 
 use http::uri::Uri;
 use serde::Serialize;

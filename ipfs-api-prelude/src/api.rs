@@ -6,7 +6,7 @@
 // copied, modified, or distributed except according to those terms.
 //
 
-use crate::{read::LineDecoder, request, response, Backend, BoxStream};
+use crate::{read::LineDecoder, request, response::{self}, Backend, BoxStream};
 use async_trait::async_trait;
 use bytes::Bytes;
 use common_multipart_rfc7578::client::multipart;
@@ -2212,11 +2212,22 @@ pub trait IpfsApi: Backend {
 
     // TODO /repo/fsck
 
-    // TODO /repo/gc
+    // /repo/gc                                                                     TODO: add docs
+    async fn repo_gc(&self) -> BoxStream<response::RepoGcResponse, Self::Error> {
+        impl_stream_api_response! {
+            (self, request::RepoGc { stream_errors: None, quiet: None, silent: None}, None) => request_stream_json
+        }
+    }
 
-    // TODO /repo/stat
+    // /repo/stat                                                                     TODO: add docs
+    async fn repo_stat(&self) -> Result<response::RepoStatResponse, Self::Error> {
+        self.request(request::RepoStat { size_only: None, human: None }, None).await
+    }
 
     // TODO /repo/verify
+//    async fn repo_verify(&self) -> Result<response::RepoVerifyResponse, Self::Error> {
+//        self.request_empty(request::RepoVerify, None).await
+//    }
 
     // TODO /repo/version
 
