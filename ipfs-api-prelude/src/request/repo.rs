@@ -9,7 +9,6 @@
 use crate::request::ApiRequest;
 use serde::Serialize;
 
-
 pub struct RepoVerify;
 
 impl_skip_serialize!(RepoVerify);
@@ -39,44 +38,11 @@ impl ApiRequest for RepoStat {
     const PATH: &'static str = "/repo/stat";
 }
 
-/* 
-#[cfg_attr(feature = "with-builder", derive(TypedBuilder))]
-#[derive(Serialize, Default)]
-#[serde(rename_all = "kebab-case")]
-pub struct BlockPut<'a> {
-    #[cfg_attr(feature = "with-builder", builder(default, setter(strip_option)))]
-    pub format: Option<&'a str>,
-    #[cfg_attr(feature = "with-builder", builder(default, setter(strip_option)))]
-    pub mhtype: Option<&'a str>,
-    #[cfg_attr(feature = "with-builder", builder(default, setter(strip_option)))]
-    pub mhlen: Option<u32>,
-    #[cfg_attr(feature = "with-builder", builder(default, setter(strip_option)))]
-    pub pin: Option<bool>,
-}
-
-impl<'a> ApiRequest for BlockPut<'a> {
-    const PATH: &'static str = "/block/put";
-}
- */
-/* 
 #[derive(Serialize)]
-pub struct BlockRm<'a> {
-    #[serde(rename = "arg")]
-    pub hash: &'a str,
+pub struct RepoVersion {
+    pub quiet: Option<bool>,
 }
 
-impl<'a> ApiRequest for BlockRm<'a> {
-    const PATH: &'static str = "/block/rm";
+impl ApiRequest for RepoVersion {
+    const PATH: &'static str = "/repo/version";
 }
- */
-/* 
-#[derive(Serialize)]
-pub struct BlockStat<'a> {
-    #[serde(rename = "arg")]
-    pub hash: &'a str,
-}
-
-impl<'a> ApiRequest for BlockStat<'a> {
-    const PATH: &'static str = "/block/stat";
-}
- */

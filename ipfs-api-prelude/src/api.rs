@@ -2257,7 +2257,18 @@ pub trait IpfsApi: Backend {
         self.request(request::RepoVerify, None).await
     }
 
-    // TODO /repo/version
+    /// Show the repo version.
+    ///
+    /// ```no_run
+    /// use ipfs_api::{IpfsApi, IpfsClient};
+    ///
+    /// let client = IpfsClient::default();
+    /// let res = client.repo_version();
+    /// ```
+    ///
+    async fn repo_version(&self) -> Result<response::RepoVersionResponse, Self::Error> {
+        self.request(request::RepoVersion { quiet: None }, None).await
+    }
 
     // TODO /resolve
 
